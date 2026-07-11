@@ -1,0 +1,23 @@
+{
+  "name": "pokemon",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/itsvk7/Pokemon#readme",
+  "bugs": {
+    "url": "https://github.com/itsvk7/Pokemon/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsvk7/Pokemon.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.7.0"
+  }
+}
