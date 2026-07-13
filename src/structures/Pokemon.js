@@ -14,9 +14,9 @@ export class Pokemon {
       enemy.hp -=
         enemy.defense >= this.attackDamage ? 0 : Math.floor(damage / 2);
       enemy.isDefend = false;
+    } else {
+      enemy.hp -= enemy.defense >= this.attackDamage ? 0 : damage;
     }
-
-    enemy.hp -= enemy.defense >= this.attackDamage ? 0 : damage;
 
     return damage;
   }

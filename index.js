@@ -1,21 +1,18 @@
 import { cancel } from "@clack/prompts";
 import { battle } from "./src/battleMenu.js";
-import { Pokemon } from "./src/structures/Pokemon.js";
 import { selectPokemon } from "./src/menus/selectPokemon.js";
+import pokemonList from "./src/constants/pokemonsList.json" with { type: "json" };
+import { createPokemon } from "./src/factories/createPokemon.js";
 
-const POKEMON_LIST = function createPokemon(key) {
-  const pokemon = POKEMON_LIST[key];
-
-  return new Pokemon(pokemon.name, pokemon.hp, pokemon.attack, pokemon.defense);
-};
+const POKEMONS = await createPokemon(pokemonList);
 
 function chooseRandomOpponent(excludingKey) {
-  const options = Object.keys(POKEMON_LIST).filter(
-    (key) => key !== excludingKey,
+  const pokemonsOptions = POKEMONS.filter(
+    (key) => key.name.toLowerCase() !== excludingKey,
   );
-  const randomIndex = Math.floor(Math.random() * options.length);
+  const randomIndex = Math.floor(Math.random() * pokemonsOptions.length);
 
-  return createPokemon(options[randomIndex]);
+  return pokemonsOptions[randomIndex];
 }
 
 const [selectedPokemon, confirmSelection] = await selectPokemon();
@@ -25,7 +22,9 @@ if (!confirmSelection) {
   process.exit(0);
 }
 
-const playerPokemon = createPokemon(selectedPokemon);
+const playerPokemon = POKEMONS.find(
+  (pokemon) => pokemon.name.toLowerCase() === selectedPokemon,
+);
 const computerPokemon = chooseRandomOpponent(selectedPokemon);
 
 await battle(playerPokemon, computerPokemon);
