@@ -1,9 +1,9 @@
 import { cancel } from "@clack/prompts";
 import { selectPokemon } from "./src/menus/selectPokemon.js";
 import pokemonList from "./src/constants/pokemonsList.json" with { type: "json" };
-import { createPokemon } from "./src/factories/createPokemon.js";
+import { loadPokemons } from "./src/factories/loadPokemons.js";
 
-const pokemons = createPokemon(pokemonList);
+const pokemons = loadPokemons(pokemonList);
 
 function chooseRandomOpponent(pokemons, excludingName) {
   const pokemonsOptions = pokemons.filter(

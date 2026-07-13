@@ -1,5 +1,5 @@
 export class Pokemon {
-  constructor(name, hp, attackDamage = 5, defense = 5) {
+  constructor({ name, hp, attackDamage = 5, defense = 5 }) {
     this.name = name;
     this.hp = hp;
     this.attackDamage = attackDamage;
