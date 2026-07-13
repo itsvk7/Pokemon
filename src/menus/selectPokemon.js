@@ -1,6 +1,6 @@
 import { log, confirm } from "@clack/prompts";
 import { setTimeout as sleep } from "node:timers/promises";
-import { showPokemonMenu } from "../menus/showPokemonMenu.js";
+import { showPokemonMenu } from "./showPokemonMenu.js";
 
 export async function selectPokemon() {
   const selectedPokemon = await showPokemonMenu();
