@@ -1,26 +1,9 @@
-import { intro, select, log, confirm, isCancel, cancel } from "@clack/prompts";
+import { log, confirm } from "@clack/prompts";
 import { setTimeout as sleep } from "node:timers/promises";
-import colorize from "strcolorize";
+import { showPokemonMenu } from "../menus/showPokemonMenu.js";
 
 export async function selectPokemon() {
-  intro(colorize("#inverse[Pokemons]"));
-
-  await sleep(200);
-
-  const selectedPokemon = await select({
-    message: "Escolha um pokémon:",
-    options: [
-      { value: "charmander", label: "[ 1 ] Charmander" },
-      { value: "squirtle", label: "[ 2 ] Squirtle" },
-    ],
-  });
-
-  await sleep(200);
-
-  if (isCancel(selectedPokemon)) {
-    cancel("Operação cancelada");
-    return process.exit(0);
-  }
+  const selectedPokemon = await showPokemonMenu();
 
   await sleep(300);
 
@@ -31,7 +14,7 @@ export async function selectPokemon() {
   await sleep(300);
 
   const confirmSelection = await confirm({
-    message: "Você confirma sua escolha?",
+    message: "[ System ] Você confirma sua escolha?",
   });
 
   return [selectedPokemon, confirmSelection];
