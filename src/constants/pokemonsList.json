@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Bulbasaur",
+    "hp": 45,
+    "attack": 11,
+    "defense": 9
+  },
+  {
+    "name": "Charmander",
+    "hp": 39,
+    "attack": 12,
+    "defense": 7
+  },
+  {
+    "name": "Squirtle",
+    "hp": 44,
+    "attack": 10,
+    "defense": 9
+  },
+  {
+    "name": "Pikachu",
+    "hp": 35,
+    "attack": 15,
+    "defense": 6
+  },
+  {
+    "name": "Eevee",
+    "hp": 55,
+    "attack": 12,
+    "defense": 8
+  },
+  {
+    "name": "Psyduck",
+    "hp": 50,
+    "attack": 11,
+    "defense": 8
+  },
+  {
+    "name": "Machop",
+    "hp": 70,
+    "attack": 16,
+    "defense": 9
+  },
+  {
+    "name": "Snorlax",
+    "hp": 100,
+    "attack": 18,
+    "defense": 15
+  }
+]
