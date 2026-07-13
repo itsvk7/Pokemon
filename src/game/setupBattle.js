@@ -3,7 +3,7 @@ import { selectPokemon } from "./src/menus/selectPokemon.js";
 import pokemonList from "./src/constants/pokemonsList.json" with { type: "json" };
 import { createPokemon } from "./src/factories/createPokemon.js";
 
-const pokemons = await createPokemon(pokemonList);
+const pokemons = createPokemon(pokemonList);
 
 function chooseRandomOpponent(pokemons, excludingName) {
   const pokemonsOptions = pokemons.filter(
