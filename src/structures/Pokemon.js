@@ -1,27 +1,35 @@
 export class Pokemon {
-  constructor({ name, hp, attackDamage = 5, defense = 5 }) {
+  constructor({ name, hp, attack = 5, defense = 5 }) {
     this.name = name;
     this.hp = hp;
-    this.attackDamage = attackDamage;
+    this.attackDamage = attack;
     this.defense = defense;
-    this.isDefend = false;
+    this.isDefending = false;
   }
 
   attack(enemy) {
-    const damage = this.attackDamage - enemy.defense;
+    let damageDealt;
 
-    if (enemy.isDefend) {
-      enemy.hp -=
-        enemy.defense >= this.attackDamage ? 0 : Math.floor(damage / 2);
-      enemy.isDefend = false;
+    if (enemy.isDefending) {
+      damageDealt =
+        enemy.defense >= this.attackDamage
+          ? 0
+          : Math.floor(this.attackDamage / 2);
+
+      enemy.isDefending = false;
     } else {
-      enemy.hp -= enemy.defense >= this.attackDamage ? 0 : damage;
+      damageDealt =
+        enemy.defense >= this.attackDamage
+          ? 0
+          : this.attackDamage - enemy.defense;
     }
 
-    return damage;
+    enemy.hp -= damageDealt;
+
+    return damageDealt;
   }
 
   defend() {
-    this.isDefend = true;
+    this.isDefending = true;
   }
 }

@@ -1,7 +1,7 @@
 import { cancel } from "@clack/prompts";
-import { selectPokemon } from "./src/menus/selectPokemon.js";
-import pokemonList from "./src/constants/pokemonsList.json" with { type: "json" };
-import { loadPokemons } from "./src/factories/loadPokemons.js";
+import { selectPokemon } from "../menus/selectPokemon.js";
+import pokemonList from "../utils/constants/pokemonsList.json" with { type: "json" };
+import { loadPokemons } from "../factories/loadPokemons.js";
 
 const pokemons = loadPokemons(pokemonList);
 

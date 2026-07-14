@@ -1,68 +1,65 @@
-import { intro, select, note } from "@clack/prompts";
+import { intro, spinner } from "@clack/prompts";
 import { setTimeout as sleep } from "node:timers/promises";
 import colorize from "strcolorize";
+import { playerTurn } from "../game/playerTurn.js";
+import { computerTurn } from "../game/computerTurn.js";
+import { stats } from "../game/stats.js";
+import { selectedAction } from "./actionsPlayerMenu.js";
 
-export async function battle(pokemon1, pokemon2) {
-  const duelists = [pokemon1, pokemon2];
+export async function battleMenu(playerPokemon, computerPokemon) {
+  const s = await spinner();
+
+  let currentPokémon = playerPokemon;
+  let adversary = computerPokemon;
+
   let turnCount = 1;
 
-  while (pokemon1.hp > 0 && pokemon2.hp > 0) {
+  stats(playerPokemon, computerPokemon);
+
+  while (playerPokemon.hp > 0 && computerPokemon.hp > 0) {
     intro(colorize(`#inverse[Turno ${turnCount}]`));
 
-    if (duelists[0].name.toLowerCase() === pokemon1.name.toLowerCase()) {
+    await sleep(200);
+
+    if (currentPokémon.name === playerPokemon.name) {
+      const action = await selectedAction();
+
+      playerTurn(action, playerPokemon, computerPokemon);
+
       await sleep(300);
 
-      const display = await note(`${pokemon1.name}
-HP: ${pokemon1.hp}
-
-${pokemon2.name}
-HP: ${pokemon2.hp}
-      `);
+      ++turnCount;
+      currentPokémon = computerPokemon;
+      adversary = playerPokemon;
 
       await sleep(500);
 
-      const options = await select({
-        message: "O que deseja fazer?",
-        options: [
-          { value: 1, label: "[ 1 ] Atacar" },
-          { value: 2, label: "[ 2 ] Defender" },
-        ],
-      });
+      stats(playerPokemon, computerPokemon);
 
-      if (options === 1) {
-        const damage = duelists[0].attack(duelists[1]);
+      s.start("Carregando próximo turno...");
 
-        note(`${duelists[0].name} atacou e causou ${damage} de dano!`);
+      await sleep(1500);
 
-        ++turnCount;
-        [duelists[0], duelists[1]] = [duelists[1], duelists[0]];
+      s.stop("Turno carregado!");
 
-        await sleep(500);
-      } else if (options === 2) {
-        duelists[1].defend();
-      }
+      await sleep(750);
     } else {
-      const rng = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+      computerTurn(playerPokemon, computerPokemon);
 
-      if (rng <= 80) {
-        const damage = duelists[0].attack(duelists[1]);
+      await sleep(300);
 
-        note(`${duelists[0].name} atacou e causou ${damage} de dano!`);
+      ++turnCount;
+      currentPokémon = playerPokemon;
+      adversary = computerPokemon;
 
-        ++turnCount;
-        [duelists[0], duelists[1]] = [duelists[1], duelists[0]];
+      await sleep(500);
+      stats(playerPokemon, computerPokemon);
 
-        await sleep(500);
-      } else {
-        duelists[0].defend();
+      s.start("Carregando próximo turno...");
 
-        note(`${duelists[0].name} se defendeu!`);
+      await sleep(1500);
 
-        ++turnCount;
-        [duelists[0], duelists[1]] = [duelists[1], duelists[0]];
-
-        await sleep(500);
-      }
+      s.stop("Turno carregado!");
     }
   }
 }
